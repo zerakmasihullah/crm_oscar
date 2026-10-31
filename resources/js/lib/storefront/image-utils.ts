@@ -10,11 +10,31 @@ export function getImageUrl(imageUrl: string | undefined | null): string | null 
     let url = String(imageUrl).trim();
     if (!url || url === 'null' || url === 'undefined') return null;
 
+    // Unwrap /storage/https://… (and host-prefixed variants) from bad API joins
+    const nested = url.match(/\/storage\/(https?:\/\/.+)$/i);
+    if (nested) {
+        url = nested[1];
+    }
+
+    if (url.startsWith('/storage/http://') || url.startsWith('/storage/https://')) {
+        url = url.slice('/storage/'.length);
+    }
+
     if (url.startsWith('http://') || url.startsWith('https://')) {
         try {
             const parsed = new URL(url);
-            if (parsed.pathname.startsWith('/storage/')) {
-                // Prefer local storage when running inside oscar_cms
+            const storagePath = parsed.pathname.startsWith('/storage/')
+                ? parsed.pathname.slice('/storage/'.length)
+                : '';
+
+            // Prefer local storage only for real disk paths, not nested remote URLs
+            if (
+                parsed.pathname.startsWith('/storage/') &&
+                storagePath &&
+                !storagePath.startsWith('http://') &&
+                !storagePath.startsWith('https://') &&
+                !storagePath.includes('://')
+            ) {
                 if (typeof window !== 'undefined' && window.location.origin) {
                     return `${window.location.origin}${parsed.pathname}${parsed.search}`;
                 }

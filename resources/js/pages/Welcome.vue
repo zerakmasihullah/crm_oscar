@@ -4,7 +4,7 @@ import { ArrowRight } from '@lucide/vue';
 import { computed } from 'vue';
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
 import { useTranslations } from '@/composables/useTranslations';
-import { dashboard, login, register } from '@/routes';
+import { dashboard, login } from '@/routes';
 import './welcome/welcome-premium.css';
 
 const page = usePage();
@@ -83,7 +83,7 @@ function lt(key: string, fallback: string): string {
                         {{ t('Log in') }}
                         <ArrowRight :size="16" />
                     </Link>
-                    <Link :href="register()" class="lp-link">
+                    <Link href="/register" class="lp-link">
                         {{ lt('landing.nav.start', 'Create account') }}
                     </Link>
                 </template>

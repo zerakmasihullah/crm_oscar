@@ -26,6 +26,7 @@ use App\Mail\OrderConfirmation;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Pusher\Pusher;
+use App\Support\PublicMediaUrl;
 
 
 class ApiDataController extends Controller
@@ -37,7 +38,7 @@ class ApiDataController extends Controller
 
         // Add website prefix to image URLs
         $menus->each(function ($menu) {
-            $menu->image = url('https://order.oscarlimerick.com/storage/' . $menu->image);
+            $menu->image = PublicMediaUrl::make($menu->image);
         });
 
         // Return a response with the menus
@@ -69,7 +70,7 @@ class ApiDataController extends Controller
 
         // Add website prefix to the image URL and calculate the average rating
         if ($menuItem->image) {
-            $menuItem->image = url('https://order.oscarlimerick.com/storage/' . $menuItem->image);
+            $menuItem->image = PublicMediaUrl::make($menuItem->image);
         }
         $menuItem->average_rating = $menuItem->ratings()->avg('score') ?? 0; // Default to 0 if no ratings
 
@@ -121,7 +122,7 @@ class ApiDataController extends Controller
         // Add website prefix to image URLs and calculate average rating
         $menuItems->each(function ($menuItem) {
             if ($menuItem->image) {
-                $menuItem->image = url('https://order.oscarlimerick.com/storage/' . $menuItem->image);
+                $menuItem->image = PublicMediaUrl::make($menuItem->image);
             }
 
             // Add average rating to the menu item
@@ -186,7 +187,7 @@ class ApiDataController extends Controller
                 'id' => $menuItem->id,
                 'title' => $menuItem->title,
                 'description' => $menuItem->description,
-                'image' => url('https://order.oscarlimerick.com/storage/' . $menuItem->image),
+                'image' => PublicMediaUrl::make($menuItem->image),
                 'price' => $menuItem->price,
                 'created_at' => $menuItem->created_at,
                 'updated_at' => $menuItem->updated_at,
@@ -237,7 +238,7 @@ class ApiDataController extends Controller
                 'id' => $menuItem->id,
                 'title' => $menuItem->title,
                 'description' => $menuItem->description,
-                'image' => url('https://order.oscarlimerick.com/storage/' . $menuItem->image),
+                'image' => PublicMediaUrl::make($menuItem->image),
                 'price' => $menuItem->price,
                 'created_at' => $menuItem->created_at,
                 'updated_at' => $menuItem->updated_at,
@@ -521,7 +522,7 @@ class ApiDataController extends Controller
         // Add website prefix to image URLs and calculate average rating
         $menuItems->each(function ($menuItem) {
             if ($menuItem->image) {
-                $menuItem->image = url('https://order.oscarlimerick.com/storage/' . $menuItem->image);
+                $menuItem->image = PublicMediaUrl::make($menuItem->image);
             }
 
             // Add average rating to the menu item
@@ -742,7 +743,7 @@ class ApiDataController extends Controller
             ->select('id', 'name', 'image')
             ->get();
         $users->each(function ($user) {
-            $user->image = url('https://order.oscarlimerick.com/storage/' . $user->image);
+            $user->image = PublicMediaUrl::make($user->image);
         });
         // Return the response as JSON
         return response()->json([
@@ -795,7 +796,7 @@ class ApiDataController extends Controller
 
         // Add the full URL to the attachment if it exists
         if ($chat->attachment) {
-            $chat->attachment = url('https://order.oscarlimerick.com/storage/' . $chat->attachment);
+            $chat->attachment = PublicMediaUrl::make($chat->attachment);
         }
 
         // Return the response
@@ -830,7 +831,7 @@ class ApiDataController extends Controller
 
         $messages->transform(function ($message) {
             if ($message->attachment) {
-                $message->attachment = url('https://order.oscarlimerick.com/storage/' . $message->attachment);
+                $message->attachment = PublicMediaUrl::make($message->attachment);
             }
             return $message;
         });

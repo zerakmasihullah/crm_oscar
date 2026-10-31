@@ -87,6 +87,16 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->respond(function (Response $response, \Throwable $e, Request $request) {
             $status = $response->getStatusCode();
 
+            // Don't Inertia-render error pages for asset/storage misses (avoids Vite loops).
+            if (
+                $request->is('storage/*')
+                || $request->is('build/*')
+                || $request->is('brand/*')
+                || $request->is('images/*')
+            ) {
+                return $response;
+            }
+
             if (
                 ! $request->expectsJson()
                 && ! $request->is('api/*')

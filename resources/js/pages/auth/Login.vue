@@ -11,7 +11,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
-import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 
@@ -120,7 +119,7 @@ const flashError = computed(() => {
 
         <p v-if="canRegister" class="auth-footer">
             New here?
-            <TextLink :href="register()" :tabindex="6">Create an account</TextLink>
+            <TextLink href="/register" :tabindex="6">Create an account</TextLink>
         </p>
     </Form>
 </template>
