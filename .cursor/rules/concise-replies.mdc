@@ -1,0 +1,14 @@
+---
+description: Keep replies minimal — no extra info, fluff, or over-explaining
+alwaysApply: true
+---
+
+# Concise replies only
+
+- Answer with only what the user asked for. No extras.
+- Do not add background, alternatives, tutorials, or “also consider…” unless requested.
+- Do not restate the task, recap the conversation, or pad with summaries.
+- Prefer 1–3 short sentences (or a tight bullet list) when that covers it.
+- Skip sections like “Next steps”, “Notes”, “Tips”, and long how-it-works writeups unless asked.
+- Code changes: implement; say what changed in one short line. No essay.
+- If unsure, ask one short question — do not dump options essays.

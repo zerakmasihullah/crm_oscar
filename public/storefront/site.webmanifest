@@ -1,0 +1,18 @@
+{
+  "name": "Oscar's Pizza & Kebab — Limerick",
+  "short_name": "Oscar's Pizza",
+  "description": "Order pizza, kebab & Mediterranean takeaway online from Oscar's on John's Street, Limerick.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#f97316",
+  "lang": "en-IE",
+  "icons": [
+    {
+      "src": "/storefront/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

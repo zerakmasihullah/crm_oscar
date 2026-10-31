@@ -1,0 +1,151 @@
+<script setup lang="ts">
+import { Head, useForm } from '@inertiajs/vue3';
+import {
+    MisForm,
+    MisInputField,
+    MisPage,
+    MisSelectField,
+} from '@/components/mis';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { useTranslations } from '@/composables/useTranslations';
+import { resourcePageBreadcrumbs } from '@/lib/pageBreadcrumbs';
+
+type DiscountItem = {
+    id: number;
+    name: string;
+    discount_type: string;
+    discount_value: string | number;
+    minimum_purchase_amount: string | number | null;
+    days_of_week: string[];
+    is_active: boolean;
+};
+
+const props = defineProps<{ item: DiscountItem }>();
+const { t } = useTranslations();
+
+const days = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday',
+] as const;
+
+const form = useForm({
+    name: props.item.name,
+    discount_type: props.item.discount_type,
+    discount_value: props.item.discount_value,
+    minimum_purchase_amount: props.item.minimum_purchase_amount ?? '',
+    days_of_week: [...(props.item.days_of_week ?? [])],
+    is_active: props.item.is_active,
+});
+
+function toggleDay(day: string, checked: boolean | 'indeterminate') {
+    if (checked === true) {
+        if (!form.days_of_week.includes(day)) {
+            form.days_of_week = [...form.days_of_week, day];
+        }
+        return;
+    }
+    form.days_of_week = form.days_of_week.filter((d) => d !== day);
+}
+
+function submit() {
+    form.transform((data) => ({
+        ...data,
+        minimum_purchase_amount:
+            data.minimum_purchase_amount === ''
+                ? null
+                : data.minimum_purchase_amount,
+    })).put(`/discounts/${props.item.id}`);
+}
+
+defineOptions(resourcePageBreadcrumbs('Discounts', '/discounts', 'edit'));
+</script>
+
+<template>
+    <Head :title="t('Edit discount')" />
+
+    <MisPage narrow>
+        <MisForm
+            :title="t('Edit discount')"
+            :cancel-href="`/discounts/${item.id}`"
+            :processing="form.processing"
+            :errors="form.errors"
+            max-width="full"
+            @submit="submit"
+        >
+            <MisInputField
+                id="name"
+                v-model="form.name"
+                :label="t('Discount name')"
+                :error="form.errors.name"
+                required
+            />
+            <div class="grid gap-4 sm:grid-cols-2">
+                <MisSelectField
+                    id="discount_type"
+                    v-model="form.discount_type"
+                    :label="t('Discount type')"
+                    :error="form.errors.discount_type"
+                    :options="[
+                        { value: 'percentage', label: t('Percentage (%)') },
+                        { value: 'fixed', label: t('Fixed amount') },
+                    ]"
+                    required
+                />
+                <MisInputField
+                    id="discount_value"
+                    v-model="form.discount_value"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    :label="
+                        form.discount_type === 'percentage'
+                            ? t('Discount percentage (%)')
+                            : t('Discount amount')
+                    "
+                    :error="form.errors.discount_value"
+                    required
+                />
+                <MisInputField
+                    id="minimum_purchase_amount"
+                    v-model="form.minimum_purchase_amount"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    :label="t('Minimum purchase amount')"
+                    :error="form.errors.minimum_purchase_amount"
+                />
+            </div>
+
+            <div class="space-y-2">
+                <Label>{{ t('Days of week') }}</Label>
+                <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <label
+                        v-for="day in days"
+                        :key="day"
+                        class="flex items-center gap-2 text-sm capitalize"
+                    >
+                        <Checkbox
+                            :model-value="form.days_of_week.includes(day)"
+                            @update:model-value="(v) => toggleDay(day, v as boolean)"
+                        />
+                        {{ day }}
+                    </label>
+                </div>
+            </div>
+
+            <label class="flex items-center gap-2 text-sm">
+                <Checkbox
+                    :model-value="form.is_active"
+                    @update:model-value="(v) => (form.is_active = v === true)"
+                />
+                {{ t('Active') }}
+            </label>
+        </MisForm>
+    </MisPage>
+</template>

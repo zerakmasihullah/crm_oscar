@@ -1,0 +1,20 @@
+.dash-card {
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--card) 88%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.dark .dash-card,
+html.dark .dash-card {
+    background: color-mix(in srgb, var(--card) 80%, transparent);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dash-track {
+    background: rgba(24, 24, 27, 0.08);
+}
+
+.dark .dash-track,
+html.dark .dash-track {
+    background: rgba(255, 255, 255, 0.08);
+}
