@@ -123,6 +123,30 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
+        },
+        "platform": {
+            "php": "8.4.8",
+            "ext-bcmath": "8.4.8",
+            "ext-ctype": "8.4.8",
+            "ext-curl": "8.4.8",
+            "ext-date": "8.4.8",
+            "ext-dom": "8.4.8",
+            "ext-fileinfo": "8.4.8",
+            "ext-filter": "8.4.8",
+            "ext-hash": "8.4.8",
+            "ext-iconv": "8.4.8",
+            "ext-json": "8.4.8",
+            "ext-libxml": "8.4.8",
+            "ext-mbstring": "8.4.8",
+            "ext-openssl": "8.4.8",
+            "ext-pcre": "8.4.8",
+            "ext-phar": "8.4.8",
+            "ext-session": "8.4.8",
+            "ext-simplexml": "8.4.8",
+            "ext-sodium": "8.4.8",
+            "ext-tokenizer": "8.4.8",
+            "ext-xml": "8.4.8",
+            "ext-xmlwriter": "8.4.8"
         }
     },
     "minimum-stability": "stable",
