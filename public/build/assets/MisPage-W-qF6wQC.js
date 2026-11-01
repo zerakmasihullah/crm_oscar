@@ -1,0 +1,1 @@
+import{Zn as e,b as t,k as n,mt as r,xt as i}from"./runtime-core.esm-bundler-BKdLzFmX.js";var a=n({__name:`MisPage`,props:{title:{},narrow:{type:Boolean}},setup(n){return(a,o)=>(r(),t(`div`,{class:e([`flex w-full flex-1 flex-col gap-6`,n.narrow?`max-w-5xl`:``])},[i(a.$slots,`default`)],2))}});export{a as t};

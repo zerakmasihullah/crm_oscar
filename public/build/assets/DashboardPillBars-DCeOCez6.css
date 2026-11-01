@@ -1,0 +1,1 @@
+.dash-card{background:color-mix(in srgb, var(--card) 88%, transparent);border:1px solid color-mix(in srgb, var(--border) 70%, transparent);border-radius:1rem}.dark .dash-card,html.dark .dash-card{background:color-mix(in srgb, var(--card) 80%, transparent);border-color:#ffffff1a}.dash-track{background:#18181b14}.dark .dash-track,html.dark .dash-track{background:#ffffff14}

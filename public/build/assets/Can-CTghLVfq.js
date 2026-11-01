@@ -1,0 +1,1 @@
+import{g as e,k as t,xt as n,y as r}from"./runtime-core.esm-bundler-BKdLzFmX.js";import{t as i}from"./usePermissions-Dz6qNCLl.js";var a=t({__name:`Can`,props:{permission:{}},setup(t){let a=t,{can:o,canAny:s}=i(),c=e(()=>Array.isArray(a.permission)?s(a.permission):o(a.permission));return(e,t)=>c.value?n(e.$slots,`default`,{},void 0,void 0,0):r(``,!0)}});export{a as t};

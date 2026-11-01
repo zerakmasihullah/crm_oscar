@@ -1,0 +1,1 @@
+import{c as e}from"./dist-BZdgmrMd.js";import{g as t}from"./runtime-core.esm-bundler-BKdLzFmX.js";function n(){let n=e(),r=t(()=>n.props.translations??{});function i(e,t={}){let n=r.value[e]??e;for(let[e,r]of Object.entries(t))n=n.replaceAll(`:${e}`,r);return n}return{translations:r,t:i}}export{n as t};

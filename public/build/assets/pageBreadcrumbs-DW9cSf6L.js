@@ -1,0 +1,1 @@
+function e(...e){return{layout:{breadcrumbs:e.filter(e=>e!=null&&e!==!1&&e.title!==``)}}}function t(t,n,r){let i={title:t,href:n};return r?r===`create`?e(i,{title:`Create`,href:`${n.replace(/\/$/,``)}/create`}):r===`edit`?e(i,{title:`Edit`,href:n}):e(i,{title:r.title,href:r.href??n}):e(i)}export{t as n,e as t};
