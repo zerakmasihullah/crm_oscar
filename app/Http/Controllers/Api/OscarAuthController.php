@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Support\SystemControl;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Order;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -198,6 +200,48 @@ class OscarAuthController extends Controller
             'message' => 'User updated successfully',
             'user' => $user,
         ], 200);
+    }
+
+    /**
+     * Mobile forgot-password — email a reset link (same broker as Fortify web).
+     */
+    public function forgotPassword(Request $request)
+    {
+        if (! SystemControl::resetPasswordEnabled()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Password reset is currently disabled',
+            ], 403);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $status = Password::sendResetLink($request->only('email'));
+
+        // Always return a generic success so we don't leak account existence.
+        if ($status === Password::RESET_LINK_SENT || $status === Password::INVALID_USER) {
+            return response()->json([
+                'status' => true,
+                'message' => 'A link sent! Check your email.',
+            ], 200);
+        }
+
+        Log::warning('forgot password failed: '.$status);
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Unable to send reset link. Please try again.',
+        ], 500);
     }
 
     /**

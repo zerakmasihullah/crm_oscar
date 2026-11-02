@@ -18,6 +18,10 @@ if (app()->environment('local', 'staging') || config('app.enable_fcm_test_routes
 
 Route::post('/login', [OscarAuthController::class, 'login']);
 Route::post('/register', [OscarAuthController::class, 'register']);
+Route::post('/forgot-password', [OscarAuthController::class, 'forgotPassword']);
+// Legacy mobile path (Django-era)
+Route::post('/user-verification/email', [OscarAuthController::class, 'forgotPassword']);
+Route::post('/user-verification/email/', [OscarAuthController::class, 'forgotPassword']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -61,7 +65,9 @@ Route::post('/create-checkout-session', [ApiDataController::class, 'create_check
 Route::get('/order-by-session/{sessionId}', [ApiDataController::class, 'get_order_by_session']);
 Route::get('/stripe-key', [ApiDataController::class, 'get_stripe_key']);
 Route::post('/create-payment-intent', [ApiDataController::class, 'create_payment_intent']);
+Route::post('/auth/social/google', [OscarAuthController::class, 'google']);
 Route::post('/auth/social/google/', [OscarAuthController::class, 'google']);
+Route::post('/auth/social/apple', [OscarAuthController::class, 'apple']);
 Route::post('/auth/social/apple/', [OscarAuthController::class, 'apple']);
 
 Route::middleware('auth:sanctum')->get('/billing-portal-url', function (Request $request) {
