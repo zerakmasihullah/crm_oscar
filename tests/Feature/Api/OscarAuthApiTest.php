@@ -71,12 +71,25 @@ class OscarAuthApiTest extends TestCase
         ])
             ->assertCreated()
             ->assertJsonPath('status', true)
-            ->assertJsonPath('user.email', 'newguest@example.com');
+            ->assertJsonPath('user.email', 'newguest@example.com')
+            ->assertJsonStructure(['token', 'token_type']);
 
         $this->assertDatabaseHas('users', [
             'email' => 'newguest@example.com',
             'role' => User::ROLE_CUSTOMER,
         ]);
+    }
+
+    public function test_profile_requires_auth(): void
+    {
+        $user = User::factory()->customer()->create();
+
+        $this->getJson('/api/user-profile/'.$user->id)->assertUnauthorized();
+
+        Sanctum::actingAs($user);
+        $this->getJson('/api/user-profile/'.$user->id)
+            ->assertOk()
+            ->assertJsonPath('user.id', $user->id);
     }
 
     public function test_forgot_password_sends_reset_link(): void

@@ -39,6 +39,16 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI', env('APP_URL').'/auth/google/callback'),
+        // Mobile IdToken audiences (optional; when set, API login enforces aud)
+        'ios_client_id' => env('GOOGLE_IOS_CLIENT_ID'),
+        'android_client_id' => env('GOOGLE_ANDROID_CLIENT_ID'),
+        'web_client_id' => env('GOOGLE_WEB_CLIENT_ID', env('GOOGLE_CLIENT_ID')),
+    ],
+
+    'apple' => [
+        // Services ID and/or iOS bundle id used as JWT `aud`
+        'client_id' => env('APPLE_CLIENT_ID', 'com.donerhouse.app'),
+        'bundle_id' => env('APPLE_BUNDLE_ID', 'com.donerhouse.app'),
     ],
 
 

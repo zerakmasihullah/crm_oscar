@@ -857,8 +857,17 @@ class ApiDataController extends Controller
     }
     public function delete_account(Request $request)
     {
-        $user = User::find($request->user_id);
-        if (!$user) {
+        $authUser = $request->user();
+        if (! $authUser) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthenticated',
+            ], 401);
+        }
+
+        // Only allow deleting the authenticated account (ignore spoofed user_id).
+        $user = User::find($authUser->id);
+        if (! $user) {
             return response()->json([
                 'status' => false,
                 'message' => 'User not found',
@@ -870,6 +879,12 @@ class ApiDataController extends Controller
             $user->deleted_at = now();
         }
         $user->save();
+
+        try {
+            $authUser->currentAccessToken()?->delete();
+        } catch (\Throwable) {
+            // ignore token revoke failures
+        }
 
         return response()->json([
             'status' => true,

@@ -16,19 +16,28 @@ if (app()->environment('local', 'staging') || config('app.enable_fcm_test_routes
     Route::get('/fcm-test-page', [FcmTestController::class, 'testPage']);
 }
 
-Route::post('/login', [OscarAuthController::class, 'login']);
-Route::post('/register', [OscarAuthController::class, 'register']);
-Route::post('/forgot-password', [OscarAuthController::class, 'forgotPassword']);
-// Legacy mobile path (Django-era)
-Route::post('/user-verification/email', [OscarAuthController::class, 'forgotPassword']);
-Route::post('/user-verification/email/', [OscarAuthController::class, 'forgotPassword']);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('throttle:20,1')->group(function () {
+    Route::post('/login', [OscarAuthController::class, 'login']);
+    Route::post('/register', [OscarAuthController::class, 'register']);
+    Route::post('/forgot-password', [OscarAuthController::class, 'forgotPassword']);
+    // Legacy mobile path (Django-era)
+    Route::post('/user-verification/email', [OscarAuthController::class, 'forgotPassword']);
+    Route::post('/user-verification/email/', [OscarAuthController::class, 'forgotPassword']);
+    Route::post('/auth/social/google', [OscarAuthController::class, 'google']);
+    Route::post('/auth/social/google/', [OscarAuthController::class, 'google']);
+    Route::post('/auth/social/apple', [OscarAuthController::class, 'apple']);
+    Route::post('/auth/social/apple/', [OscarAuthController::class, 'apple']);
 });
-Route::middleware('auth:sanctum')->post('/logout', [OscarAuthController::class, 'logout']);
 
-Route::get('/user-profile/{id}', [OscarAuthController::class, 'user_profile']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::post('/logout', [OscarAuthController::class, 'logout']);
+    Route::get('/user-profile/{id}', [OscarAuthController::class, 'user_profile']);
+    Route::post('/user-profile-edit/{id}', [OscarAuthController::class, 'edit_user']);
+    Route::post('/delete-account', [ApiDataController::class, 'delete_account']);
+});
 
 Route::get('/menu-item/{id}', [ApiDataController::class, 'get_menu_item_by_id']);
 Route::get('/food-category', [ApiDataController::class, 'get_all_menus']);
@@ -42,7 +51,6 @@ Route::post('/place-order', [ApiDataController::class, 'place_order']);
 Route::get('/order-notification', [ApiDataController::class, 'getNotifications']);
 Route::post('/order-notification/read/{id}', [ApiDataController::class, 'markAsRead']);
 Route::get('/all-staffs', [ApiDataController::class, 'getActiveStaff']);
-Route::post('/user-profile-edit/{id}', [OscarAuthController::class, 'edit_user']);
 Route::post('/chat/send/', [ApiDataController::class, 'send_message']);
 Route::get('/chat/receive/{user1_id}/{user2_id}', [ApiDataController::class, 'receive_message']);
 Route::get('/fees', [ApiDataController::class, 'all_fess']);
@@ -59,16 +67,10 @@ Route::post('/order-delivery-complete/{order_id}', [ApiDataController::class, 'o
 
 Route::get('/drinks', [ApiDataController::class, 'get_drinks']);
 
-Route::post('/delete-account', [ApiDataController::class, 'delete_account']);
-
 Route::post('/create-checkout-session', [ApiDataController::class, 'create_checkout_session']);
 Route::get('/order-by-session/{sessionId}', [ApiDataController::class, 'get_order_by_session']);
 Route::get('/stripe-key', [ApiDataController::class, 'get_stripe_key']);
 Route::post('/create-payment-intent', [ApiDataController::class, 'create_payment_intent']);
-Route::post('/auth/social/google', [OscarAuthController::class, 'google']);
-Route::post('/auth/social/google/', [OscarAuthController::class, 'google']);
-Route::post('/auth/social/apple', [OscarAuthController::class, 'apple']);
-Route::post('/auth/social/apple/', [OscarAuthController::class, 'apple']);
 
 Route::middleware('auth:sanctum')->get('/billing-portal-url', function (Request $request) {
     $user = $request->user();

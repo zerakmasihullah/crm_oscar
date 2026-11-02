@@ -47,6 +47,7 @@ use Spatie\Permission\Traits\HasRoles;
     'name',
     'email',
     'google_id',
+    'apple_id',
     'password',
     'is_active',
     'disabled_at',
