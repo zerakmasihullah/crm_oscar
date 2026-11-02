@@ -12,8 +12,8 @@
         <div class="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-white rounded-lg p-2 md:p-3 shadow-lg">
             <img
                 src="/storefront/logo.png"
-                alt="Oscar's Pizza & Kebab Limerick logo"
-                class="h-auto w-auto max-h-12 md:max-h-14"
+                alt="Doner House Limerick logo"
+                class="h-auto w-auto max-h-12 md:max-h-14 rounded-full"
             />
         </div>
     </div>

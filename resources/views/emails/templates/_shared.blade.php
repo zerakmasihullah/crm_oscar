@@ -1,5 +1,5 @@
 @php
-    $brandName = "Oscar's Pizza & Kebab";
+    $brandName = "Doner House";
     $siteUrl = config('app.url', 'https://www.oscarlimerick.com');
     $unsubscribeUrl = $unsubscribeUrl ?? ($recipientEmail ? \App\Http\Controllers\MarketingUnsubscribeController::signedUrl($recipientEmail) : $siteUrl);
 @endphp

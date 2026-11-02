@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $promotion->subject }} - Pazzi & Kebab</title>
+    <title>{{ $promotion->subject }} - Doner House</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
     <div class="email-wrapper">
         <div class="card">
             <div class="card-header">
-                <img src="{{ asset('logo_white.png') }}" alt="Pazzi & Kebab" class="logo" onerror="this.style.display='none'">
+                <img src="{{ asset('logo_white.png') }}" alt="Doner House" class="logo" onerror="this.style.display='none'">
                 <h1>{{ $promotion->subject }}</h1>
             </div>
 

@@ -874,16 +874,77 @@ class ApiDataController extends Controller
             ], 404);
         }
 
-        $user->is_active = false;
-        if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'deleted_at')) {
-            $user->deleted_at = now();
+        if ($user->canAccessAdminPanel()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Staff accounts cannot be deleted from the app',
+            ], 403);
         }
-        $user->save();
 
         try {
-            $authUser->currentAccessToken()?->delete();
-        } catch (\Throwable) {
-            // ignore token revoke failures
+            DB::transaction(function () use ($user) {
+                // Remove profile image from disk when stored locally.
+                if (! empty($user->image) && ! str_starts_with((string) $user->image, 'http')) {
+                    try {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($user->image);
+                    } catch (\Throwable) {
+                        // ignore storage cleanup failures
+                    }
+                }
+
+                // Drop push + API sessions so the account cannot keep receiving data.
+                $user->tokens()->delete();
+
+                // Keep order rows for legal/tax retention, but strip contact PII.
+                Order::query()
+                    ->where('customer_id', $user->id)
+                    ->update([
+                        'customer_name' => 'Deleted User',
+                        'phone_number' => null,
+                        'address' => null,
+                    ]);
+
+                OrderNotification::query()
+                    ->where('customer_id', $user->id)
+                    ->delete();
+
+                Chat::query()
+                    ->where(function ($q) use ($user) {
+                        $q->where('sender', $user->id)
+                            ->orWhere('receiver', $user->id);
+                    })
+                    ->delete();
+
+                // Anonymise the user record so it cannot be used to identify the person.
+                $user->forceFill([
+                    'name' => 'Deleted User',
+                    'email' => 'deleted_'.$user->id.'_'.\Illuminate\Support\Str::lower(\Illuminate\Support\Str::random(10)).'@deleted.local',
+                    'phone_number' => null,
+                    'area_code' => null,
+                    'address' => null,
+                    'latitude' => null,
+                    'longitude' => null,
+                    'image' => null,
+                    'fcm_token' => null,
+                    'google_id' => null,
+                    'apple_id' => null,
+                    'password' => \Illuminate\Support\Str::random(64),
+                    'is_active' => false,
+                    'remember_token' => null,
+                    'disabled_at' => now(),
+                ])->save();
+
+                $user->delete();
+            });
+        } catch (\Throwable $e) {
+            Log::error('delete_account failed: '.$e->getMessage(), [
+                'user_id' => $authUser->id,
+            ]);
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Could not delete account',
+            ], 500);
         }
 
         return response()->json([

@@ -70,7 +70,9 @@ const keywords = [
         />
         <link head-key="canonical" rel="canonical" :href="canonical" />
         <link head-key="manifest" rel="manifest" href="/storefront/site.webmanifest" />
-        <link head-key="apple-touch-icon" rel="apple-touch-icon" href="/storefront/logo.png" />
+        <link head-key="apple-touch-icon" rel="apple-touch-icon" href="/storefront/apple-touch-icon.png" />
+        <link head-key="icon" rel="icon" type="image/png" sizes="32x32" href="/storefront/favicon-32.png" />
+        <link head-key="icon-192" rel="icon" type="image/png" sizes="192x192" href="/storefront/logo.png" />
 
         <meta head-key="theme-color-light" name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
         <meta head-key="theme-color-dark" name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />

@@ -17,7 +17,7 @@ const logo = computed(() => {
 
     return typeof value === 'string' && value !== ''
         ? value
-        : '/brand/oscar-mark.svg';
+        : '/storefront/logo.png';
 });
 
 function lt(key: string, fallback: string): string {

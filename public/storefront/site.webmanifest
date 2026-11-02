@@ -1,18 +1,27 @@
 {
-  "name": "Oscar's Pizza & Kebab — Limerick",
-  "short_name": "Oscar's Pizza",
-  "description": "Order pizza, kebab & Mediterranean takeaway online from Oscar's on John's Street, Limerick.",
+  "name": "Doner House",
+  "short_name": "Doner House",
+  "description": "Order doner, kebab and more from Doner House, Limerick.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#f97316",
-  "lang": "en-IE",
+  "background_color": "#ffffff",
+  "theme_color": "#E31C23",
   "icons": [
     {
       "src": "/storefront/logo.png",
-      "sizes": "512x512",
+      "sizes": "1024x1024",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/storefront/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/storefront/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
     }
   ]
 }

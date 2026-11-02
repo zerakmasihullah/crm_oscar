@@ -60,7 +60,7 @@ const lastUpdated = computed(() =>
             <section class="space-y-4">
               <h2 class="text-xl sm:text-2xl font-bold text-foreground mt-8 mb-4">1. Introduction</h2>
               <p class="text-sm sm:text-base leading-relaxed">
-                Welcome to Oscar's Pizza & Kebab. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Statement explains how we collect, use, disclose, and safeguard your information when you use our website and services.
+                Welcome to Doner House. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Statement explains how we collect, use, disclose, and safeguard your information when you use our website, Doner House mobile app, and ordering services.
               </p>
             </section>
 
@@ -136,7 +136,7 @@ const lastUpdated = computed(() =>
               <ul class="list-disc list-inside space-y-2 mt-2 ml-4">
                 <li>Access and receive a copy of your personal data</li>
                 <li>Rectify inaccurate or incomplete data</li>
-                <li>Request deletion of your personal data</li>
+                <li>Request deletion of your personal data (in the Doner House app: Profile → Delete account)</li>
                 <li>Object to processing of your personal data</li>
                 <li>Request restriction of processing</li>
                 <li>Data portability</li>
@@ -172,9 +172,9 @@ const lastUpdated = computed(() =>
               </p>
               <div class="bg-muted/50 rounded-lg p-4 mt-4 border border-border">
                 <p class="text-sm sm:text-base leading-relaxed">
-                  <strong class="text-foreground">Oscar&apos;s Pizza &amp; Kebab</strong><br />
-                  17 John&apos;s Street, Irishtown, Limerick, V94 KR22, Ireland<br />
-                  Email: info@oscarlimerick.com
+                  <strong class="text-foreground">Doner House</strong><br />
+                  17 John&apos;s Street, Limerick, Ireland<br />
+                  Email: support@oscarlimerick.com
                 </p>
               </div>
             </section>

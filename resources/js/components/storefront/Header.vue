@@ -31,15 +31,15 @@ onMounted(() => {
             <Link
                 href="/"
                 class="flex items-center gap-2.5 min-w-0 transition hover:opacity-90"
-                aria-label="Oscar's Pizza & Kebab home"
+                aria-label="Doner House home"
             >
                 <img
                     src="/storefront/logo.png"
-                    alt="Oscar's Pizza & Kebab"
-                    class="size-8 md:size-9 object-contain shrink-0"
+                    alt="Doner House"
+                    class="size-8 md:size-9 object-contain shrink-0 rounded-full"
                 />
                 <span class="hidden sm:block text-[15px] font-bold text-foreground tracking-tight truncate">
-                    Oscar&apos;s Pizza
+                    Doner House
                 </span>
             </Link>
 

@@ -55,14 +55,14 @@ const lastUpdated = computed(() =>
               <strong class="text-foreground">Last Updated:</strong> {{ lastUpdated }}
             </p>
             <p class="text-sm sm:text-base leading-relaxed">
-              These Terms of Use apply to the Oscar&apos;s Pizza &amp; Kebab website, mobile app, and ordering services operated from Ireland. They are governed by the laws of Ireland and applicable European Union consumer law as applied in Ireland.
+              These Terms of Use apply to the Doner House website, mobile app, and ordering services operated from Ireland. They are governed by the laws of Ireland and applicable European Union consumer law as applied in Ireland.
             </p>
 
             <section class="space-y-4">
               <h2 class="text-xl sm:text-2xl font-bold text-foreground mt-8 mb-4">1. Who We Are</h2>
               <p class="text-sm sm:text-base leading-relaxed">
-                In these terms, &quot;we&quot;, &quot;us&quot;, and &quot;our&quot; means Oscar&apos;s Pizza &amp; Kebab, trading from 17 John&apos;s Street, Irishtown, Limerick, V94 KR22, Ireland. You can contact us by email at 
-                <a href="mailto:info@oscarlimerick.com" class="text-orange-500 hover:underline">info@oscarlimerick.com</a>
+                In these terms, &quot;we&quot;, &quot;us&quot;, and &quot;our&quot; means Doner House, trading from 17 John&apos;s Street, Limerick, Ireland. You can contact us by email at 
+                <a href="mailto:support@oscarlimerick.com" class="text-orange-500 hover:underline">support@oscarlimerick.com</a>
                 , by phone on 
                 <a href="tel:+35361597178" class="text-orange-500 hover:underline">061 597 178</a>
                 , or via our 
@@ -203,7 +203,7 @@ const lastUpdated = computed(() =>
             <section class="space-y-4">
               <h2 class="text-xl sm:text-2xl font-bold text-foreground mt-8 mb-4">8. Intellectual Property</h2>
               <p class="text-sm sm:text-base leading-relaxed">
-                Content on our website and app — including text, graphics, logos, images, and software — is owned by Oscar&apos;s Pizza &amp; Kebab or our licensors and is protected by Irish and international intellectual property laws. You may not copy, distribute, or create derivative works from it without our written permission, except where Irish law allows (for example, limited personal use or other permitted exceptions).
+                Content on our website and app — including text, graphics, logos, images, and software — is owned by Doner House or our licensors and is protected by Irish and international intellectual property laws. You may not copy, distribute, or create derivative works from it without our written permission, except where Irish law allows (for example, limited personal use or other permitted exceptions).
               </p>
             </section>
 
@@ -262,7 +262,7 @@ const lastUpdated = computed(() =>
               </p>
               <div class="bg-muted/50 rounded-lg p-4 mt-4 border border-border">
                 <p class="text-sm sm:text-base leading-relaxed">
-                  <strong class="text-foreground">Oscar&apos;s Pizza &amp; Kebab</strong><br />
+                  <strong class="text-foreground">Doner House</strong><br />
                   17 John&apos;s Street, Irishtown, Limerick, V94 KR22, Ireland<br />
                   Phone: 
                   <a href="tel:+35361597178" class="text-orange-500 hover:underline">061 597 178</a>
